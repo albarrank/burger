@@ -6,6 +6,6 @@ const burgerRoutes = require("./controllers/burgers_controller");
 
 app.use("/", burgerRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:" + PORT);
 });

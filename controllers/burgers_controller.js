@@ -5,7 +5,7 @@ const path = require("path");
 var burgerRoute = express.Router();
 burgerRoute = express();
 
-burgerRoute.use(express.static(path.join(__dirname, "../public")));
+burgerRoute.use(express.static("public"));
 burgerRoute.use(express.urlencoded({extended: true}));
 burgerRoute.use(express.json());
 
@@ -26,13 +26,22 @@ burgerRoute.get("/", function(req, res) {
 });
 
 burgerRoute.post("/", function(req, res) {
-
+    
     var newBurger = req.body.newBurger;
     console.log(newBurger);
 
+// callback chain starts here (used to display data from database to the html)
     burger.getAllBurgers(function(data) {
         console.log(data);
     });
+
+    burger.addNewBurger(newBurger, function(data) {
+        console.log(data);
+        res.redirect("/");
+    });
+
+// this callback takes a user input 
+
 });
 
 

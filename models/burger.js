@@ -16,6 +16,12 @@ var burger = {
             AnonCallbackFunctionsFromBurgerController(result);
             
         });
+    },
+
+    addNewBurger: function(newBurger, callback) {
+        ormObject.addNewBurgerToDatabase(newBurger, function(result) {
+            callback(result);
+        })
     }
 };
 

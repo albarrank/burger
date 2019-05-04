@@ -46,13 +46,17 @@ var ormObject = {
         });
     },
 
-    insertOne() {
-        console.log("insert Functions is working");
-    },
+    addNewBurgerToDatabase: function (newBurger, callbackFunctionToAddBurger) {
+        var queryString = "INSERT INTO Burgers (burger_name, devoured) VALUES (?, 0);";
 
-    updateOne() {
-        console.log("update is working");
+        connection.query(queryString, [newBurger], function(err, result) {
+            if (err) {
+                throw err;
+            }
+            callbackFunctionToAddBurger(result);
+        });
     }
+
 }
 
 module.exports = ormObject;

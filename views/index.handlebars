@@ -2,56 +2,58 @@
 
 {{!-- create a button somewhere here
 so the user input can be sent to the database --}}
+<h1>OUT OF THIS WORLD BURGERS</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="burgers eaten">
+                <h2>Burgers not eaten</h2>
 
-<div class="burgers-not-eaten">
-    <h2>Burgers not eaten</h2>
-    <ul>
-    {{#each burgers}}
-        {{#unless this.devoured}}
-            <li>
-                <p>BURGER NAME: {{this.burger_name}}</p>
-            <button value={{this.id}} class="eat">Eat the Burger!</button>
-        </li>
-        {{/unless}}
-    {{/each}}
-</ul>
+                {{#each burgers}}
+                    {{#unless this.devoured}}
+                        <div class="burgerWrap">
+                            <img class="img" src="/assets/img/burger.png">
+                            <p>BURGER NAME: {{this.burger_name}}</p>
+                                <form action="/update/{{this.id}}" method="POST">
+                                    <button class="eat">Eat the Burger!</button>
+                                </form>
+                        </div>
+                    {{/unless}}
+                {{/each}}
 
-<div class="burgers-eaten">
-    <h2>Burgers eaten</h1>
-    <ul>
-        {{#each burgers}}
-            {{#if this.devoured}}
-                <li>
-                    <p>BURGER NAME: {{this.burger_name}}</p>
-                </li>
-                {{/if}}
-        {{/each}}
-    </ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+            <div class="burgers notEaten">
+                <h2>Burgers eaten</h1>
+                
+                {{#each burgers}}
+                    {{#if this.devoured}}
+                        <div>
+                            <img class="img" src="/assets/img/burger.png">
+                            <p>BURGER NAME: {{this.burger_name}}</p>
+                        </div>
+                    {{/if}}
+                {{/each}}
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="mkBurger"action="/create" method="POST">
+                <textarea type="text" name="newBurger"></textarea>
+                <button class="btn" type="submit">Make burgers</button>
+            </form>
+        </div>
+    </div>
+
+    
 </div>
-
-<form action="/" method="POST">
-    <textarea type="text" name="newBurger"></textarea>
-    <button type="submit">Make burgers</button>
-</form>
-
-<script>
-    $(".eat").on("click", grabBurgerData);
-
-    function grabBurgerData() {
-        var burgerId = this.value;
-
-        var value = {
-            id: burgerId
-        }
-        console.log(burgerId);
-
-        $.post("/api", value)
-        .then(function(data, status) {
-            console.log(status);
-        });
-    }
-</script>
-
 
 
 

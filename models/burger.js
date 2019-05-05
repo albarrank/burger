@@ -9,10 +9,7 @@ to the methods inside the ormObject methods
 var burger = {
     getAllBurgers: function(AnonCallbackFunctionsFromBurgerController) {
 
-        console.log("step 4");
-        
         ormObject.getAllBurgersFromDatabase(function(result) {
-            console.log("step 3");
             AnonCallbackFunctionsFromBurgerController(result);
             
         });
@@ -24,8 +21,8 @@ var burger = {
         })
     },
 
-    devourBurger: function(eatenBurger, callback) {
-        ormObject.changeDevouredInDatabase(eatenBurger, function(result) {
+    devourBurger: function(burgerId, callback) {
+        ormObject.changeDevouredInDatabase(burgerId, function(result) {
             callback(result);
         });
     }

@@ -31,17 +31,15 @@ class Burger {
 }
 */
 var ormObject = {
+
     getAllBurgersFromDatabase: function(AnonCallbackFunctionFromBurgerModel) {
         
-        var queryString = "SELECT * FROM burgers WHERE devoured = 0;";
+        var queryString = "SELECT * FROM burgers";
 
-        console.log("step 2");
-
-        connection.query(queryString, function(err, result) {
+        connection.query(queryString,function(err, result) {
             if (err) {
                 throw err;
             }
-            console.log("step 1");
             AnonCallbackFunctionFromBurgerModel(result);
         });
     },
@@ -68,6 +66,6 @@ var ormObject = {
         });
     }
 
-}
+};
 
 module.exports = ormObject;

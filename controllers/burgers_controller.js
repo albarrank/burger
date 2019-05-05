@@ -25,34 +25,25 @@ burgerRoute.get("/", function(req, res) {
 
 });
 // creat burger function
-burgerRoute.post("/", function(req, res) {
+burgerRoute.post("/create", function(req, res) {
     
     var newBurger = req.body.newBurger;
-    console.log(newBurger);
-
-    // callback chain starts here (used to display data from database to the html)
-    // burger.getAllBurgers(function(allBurgerdata) {
-    //     console.log(allBurgerdata);
-    // });
-
     
     // this callback takes a user input 
-    burger.addNewBurger(newBurger, function(updatedBurgerdata) {
-        // console.log(updatedBurgerdata);
+    burger.addNewBurger(newBurger, function() {
         res.redirect("/");
     });
 
 });
 
 // change devoured column
-burgerRoute.post("/api", function(req, res) {
-    var burgerEaten = req.body;
+burgerRoute.post("/update/:id", function(req, res) {
+    // var burgerEaten = req.body;
 
-    burger.devourBurger(burgerEaten.id, function(devouredBurgerData) {
-        // console.log(devouredBurgerData);
+    burger.devourBurger([req.params.id], function() {
+        res.redirect("/");
     });
     
-    res.redirect("/");
     // res.send(bur);
 });
 

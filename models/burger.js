@@ -22,6 +22,12 @@ var burger = {
         ormObject.addNewBurgerToDatabase(newBurger, function(result) {
             callback(result);
         })
+    },
+
+    devourBurger: function(eatenBurger, callback) {
+        ormObject.changeDevouredInDatabase(eatenBurger, function(result) {
+            callback(result);
+        });
     }
 };
 

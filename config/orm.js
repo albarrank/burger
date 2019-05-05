@@ -33,7 +33,7 @@ class Burger {
 var ormObject = {
     getAllBurgersFromDatabase: function(AnonCallbackFunctionFromBurgerModel) {
         
-        var queryString = "SELECT * FROM burgers WHERE devoured = 0";
+        var queryString = "SELECT * FROM burgers WHERE devoured = 0;";
 
         console.log("step 2");
 
@@ -47,13 +47,24 @@ var ormObject = {
     },
 
     addNewBurgerToDatabase: function (newBurger, callbackFunctionToAddBurger) {
-        var queryString = "INSERT INTO Burgers (burger_name, devoured) VALUES (?, 0);";
+        var queryString = "INSERT INTO burgers (burger_name, devoured) VALUES (?, ?);";
 
-        connection.query(queryString, [newBurger], function(err, result) {
+        connection.query(queryString, [newBurger, false], function(err, result) {
             if (err) {
                 throw err;
             }
             callbackFunctionToAddBurger(result);
+        });
+    },
+
+    changeDevouredInDatabase: function(eatenBurgerId, callbackFunctionToChangeDevoured) {
+        var queryString = "UPDATE burgers SET devoured  = ? WHERE id = ?;";
+
+        connection.query(queryString, [true, eatenBurgerId], function(err, result) {
+            if (err) {
+                throw err;
+            }
+            callbackFunctionToChangeDevoured(result);
         });
     }
 

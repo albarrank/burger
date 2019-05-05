@@ -3,30 +3,30 @@
 {{!-- create a button somewhere here
 so the user input can be sent to the database --}}
 
-<div class="main-wrapper jumbotron">
-    <div class="burgers-not-eaten">
-        <h2 class="display-4">Burgers not eaten</h2>
-        <ul>
-            {{#each burgers}}
-                <li>
-                <p>ID: {{this.id}}</p>
+<div class="burgers-not-eaten">
+    <h2>Burgers not eaten</h2>
+    <ul>
+    {{#each burgers}}
+        {{#unless this.devoured}}
+            <li>
                 <p>BURGER NAME: {{this.burger_name}}</p>
-                <button value={{this.id}} class="eat">Eat the Burger!</button>
-            </li>
-        {{/each}}
-    </ul>
-</div>
+            <button value={{this.id}} class="eat">Eat the Burger!</button>
+        </li>
+        {{/unless}}
+    {{/each}}
+</ul>
 
 <div class="burgers-eaten">
-    <h1>example 2</h1>
-    {{!-- <ul>
-        {{#each tasks}}
-            <li>
-            <p>ID: {{this.id}}</p>
-            <p>Wish: {{this.task}}</p>
-            </li>
+    <h2>Burgers eaten</h1>
+    <ul>
+        {{#each burgers}}
+            {{#if this.devoured}}
+                <li>
+                    <p>BURGER NAME: {{this.burger_name}}</p>
+                </li>
+                {{/if}}
         {{/each}}
-    </ul> --}}
+    </ul>
 </div>
 
 <form action="/" method="POST">
@@ -38,7 +38,17 @@ so the user input can be sent to the database --}}
     $(".eat").on("click", grabBurgerData);
 
     function grabBurgerData() {
-        console.log(this.value);
+        var burgerId = this.value;
+
+        var value = {
+            id: burgerId
+        }
+        console.log(burgerId);
+
+        $.post("/api", value)
+        .then(function(data, status) {
+            console.log(status);
+        });
     }
 </script>
 

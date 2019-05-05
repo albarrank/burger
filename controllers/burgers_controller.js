@@ -24,26 +24,36 @@ burgerRoute.get("/", function(req, res) {
     });
 
 });
-
+// creat burger function
 burgerRoute.post("/", function(req, res) {
     
     var newBurger = req.body.newBurger;
     console.log(newBurger);
 
-// callback chain starts here (used to display data from database to the html)
-    burger.getAllBurgers(function(data) {
-        console.log(data);
-    });
+    // callback chain starts here (used to display data from database to the html)
+    // burger.getAllBurgers(function(allBurgerdata) {
+    //     console.log(allBurgerdata);
+    // });
 
     
     // this callback takes a user input 
-    burger.addNewBurger(newBurger, function(data) {
-        console.log(data);
+    burger.addNewBurger(newBurger, function(updatedBurgerdata) {
+        // console.log(updatedBurgerdata);
         res.redirect("/");
     });
 
-
 });
 
+// change devoured column
+burgerRoute.post("/api", function(req, res) {
+    var burgerEaten = req.body;
+
+    burger.devourBurger(burgerEaten.id, function(devouredBurgerData) {
+        // console.log(devouredBurgerData);
+    });
+    
+    res.redirect("/");
+    // res.send(bur);
+});
 
 module.exports = burgerRoute;

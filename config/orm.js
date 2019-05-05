@@ -1,35 +1,7 @@
 const connection = require("./connection");
 
+//Final end to the chain of callback functions
 
-
-/*
-class Burger {
-
-    constructor(burgerName, ifDevoured) {
-        this.burgerName = burgerName;
-        this.devoured = ifDevoured;
-    }
-
-    selectAll() {
-        connection.query("SELECT * from burgers;", function(err, data) {
-            if (err) {
-                throw err;
-            }
-            console.log(data);
-        });
-        console.log("select all  function works");
-    }
-
-    insertOne() {
-        console.log("insert one function works");
-    }
-
-    updateOne() {
-        console.log("updateOne function works");
-    }
-
-}
-*/
 var ormObject = {
 
     getAllBurgersFromDatabase: function(AnonCallbackFunctionFromBurgerModel) {
@@ -44,25 +16,25 @@ var ormObject = {
         });
     },
 
-    addNewBurgerToDatabase: function (newBurger, callbackFunctionToAddBurger) {
+    addNewBurgerToDatabase: function (newBurger, AnonCallbackFunctionToAddBurger) {
         var queryString = "INSERT INTO burgers (burger_name, devoured) VALUES (?, ?);";
 
         connection.query(queryString, [newBurger, false], function(err, result) {
             if (err) {
                 throw err;
             }
-            callbackFunctionToAddBurger(result);
+            AnonCallbackFunctionToAddBurger(result);
         });
     },
 
-    changeDevouredInDatabase: function(eatenBurgerId, callbackFunctionToChangeDevoured) {
+    changeDevouredInDatabase: function(eatenBurgerId, AnonCallbackFunctionToChangeDevoured) {
         var queryString = "UPDATE burgers SET devoured  = ? WHERE id = ?;";
 
         connection.query(queryString, [true, eatenBurgerId], function(err, result) {
             if (err) {
                 throw err;
             }
-            callbackFunctionToChangeDevoured(result);
+            AnonCallbackFunctionToChangeDevoured(result);
         });
     }
 

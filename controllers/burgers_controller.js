@@ -14,7 +14,6 @@ var exphbs = require("express-handlebars");
 burgerRoute.engine("handlebars", exphbs({defaultLayout: "main"}));
 burgerRoute.set("view engine", "handlebars");
 
-// ----------------------------------------------------------------------------------------------
 
 burgerRoute.get("/", function(req, res) {
 
@@ -24,19 +23,19 @@ burgerRoute.get("/", function(req, res) {
     });
 
 });
-// creat burger function
+
+// Creates new burger
 burgerRoute.post("/create", function(req, res) {
     
     var newBurger = req.body.newBurger;
     
-    // this callback takes a user input 
     burger.addNewBurger(newBurger, function() {
         res.redirect("/");
     });
 
 });
 
-// change devoured column
+// Updates devoured column
 burgerRoute.post("/update/:id", function(req, res) {
     // var burgerEaten = req.body;
 
@@ -44,7 +43,6 @@ burgerRoute.post("/update/:id", function(req, res) {
         res.redirect("/");
     });
     
-    // res.send(bur);
 });
 
 module.exports = burgerRoute;
